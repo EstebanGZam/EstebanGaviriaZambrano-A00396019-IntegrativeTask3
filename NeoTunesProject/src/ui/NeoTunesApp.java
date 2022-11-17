@@ -1,79 +1,129 @@
 package ui;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 
 import model.NeoTunesPlatform;
 
 public class NeoTunesApp {
 
     // relations
+    /**
+     * <b>name:</b> input <br>
+     * Instance line of the Scanner object.<br>
+     */
     private static Scanner input = new Scanner(System.in);
-    private static NeoTunesPlatform controller = new NeoTunesPlatform();
+    private static NeoTunesPlatform objController;
+
+    // methods
+    /**
+     * <b>Name:</b> NeoTunesApp <br>
+     * Constructor method of NeoTunesApp class.<br>
+     * <b><i>pre: </i></b> <br>
+     * <b><i>pos:</i> </b> The NeoTunesApp object is built<br>
+     */
+    public NeoTunesApp() {
+        objController = new NeoTunesPlatform();
+    }
 
     /**
+     * <b>Name:</b> main <br>
+     * Main method. It is used to run the program.<br>
+     * 
      * @param args
      */
     public static void main(String[] args) {
+        NeoTunesApp objMain = new NeoTunesApp();
         System.out.println(
-                controller.addUser("Bad bunny", "111", LocalDate.of(2022, 5, 10), "Benito", "soyunaurl.com", 2));
+                objController.addUser("Bad bunny", "111", LocalDate.of(2022, 5, 10), "Benito", "soyunaurl.com", 2));
         System.out.println(
-                controller.addUser("Cepeda", "222", LocalDate.of(2022, 5, 10), "Andres", "soyunaurl.com", 2));
-        System.out.println(controller.addUser("Juan", "123", LocalDate.of(2022, 7, 27), 1));
+                objController.addUser("Cepeda", "222", LocalDate.of(2022, 5, 10), "Andres", "soyunaurl.com", 2));
+        System.out.println(objController.addUser("Juan", "123", LocalDate.of(2022, 7, 27), 1));
         System.out
-                .println(controller.addAudio("Bad bunny", "Callaita", 1, "Soyunaurl.com", LocalTime.of(0, 3, 10), 10));
+                .println(objController.addAudio("Bad bunny", "Callaita", 1, "Soyunaurl.com", LocalTime.of(0, 3, 10),
+                        10));
         System.out
-                .println(controller.addAudio("Cepeda", "Besos usados", 1, "Soyunaurl.com", LocalTime.of(0, 3, 10), 10));
+                .println(objController.addAudio("Cepeda", "Besos usados", 1, "Soyunaurl.com", LocalTime.of(0, 3, 10),
+                        10));
         System.out
-                .println(controller.addAudio("Cepeda", "Magia", 1, "Soyunaurl.com", LocalTime.of(0, 3, 10), 15));
+                .println(objController.addAudio("Cepeda", "Magia", 1, "Soyunaurl.com", LocalTime.of(0, 3, 10), 15));
 
-        System.out.println(controller.addUser("Migala", "123", LocalDate.of(2015, 5, 21), "Jose Luis", "123.img", 1));
-        System.out.println(controller.addAudio("Migala", "El sentido de la vida", 2, "42", "Soyunaurlloquisima.com",
+        System.out
+                .println(objController.addUser("Migala", "123", LocalDate.of(2015, 5, 21), "Jose Luis", "123.img", 1));
+        System.out.println(objController.addAudio("Migala", "El sentido de la vida", 2, "42", "Soyunaurlloquisima.com",
                 LocalTime.of(1, 20, 15)));
 
         ArrayList<String> audios = new ArrayList<String>();
         audios.add("Callaita");
         audios.add("Besos usados");
-        System.out.println(controller.createPlaylist("Juan", "Salsa", audios));
+        System.out.println(objController.createPlaylist("Juan", "Salsa", audios));
 
         ArrayList<String> audiosAdd = new ArrayList<String>(), audiosToRemove = new ArrayList<String>();
         audiosAdd.add("El sentido de la vida");
-        System.out.println(controller.editPlaylist("Juan", "Salsa", audiosAdd, audiosToRemove));
-        System.out.println(controller.sharePlaylist("Juan", "Salsa") + "\n");
+        System.out.println(objController.editPlaylist("Juan", "Salsa", audiosAdd, audiosToRemove));
+        System.out.println(objController.sharePlaylist("Juan", "Salsa") + "\n");
         int option = 0;
         do {
-            menu();
+            objMain.menu();
             option = input.nextInt();
             input.nextLine();
             switch (option) {
                 case 1:
-                    addUser(option);
+                    objMain.addUser(option);
                     break;
                 case 2:
-                    addUser(option);
+                    objMain.addUser(option);
                     break;
                 case 3:
-                    addAudio();
+                    objMain.addAudio();
                     break;
                 case 4:
-                    createPlayList();
+                    objMain.createPlayList();
                     break;
                 case 5:
-                    editPlaylist();
+                    objMain.editPlaylist();
                     break;
                 case 6:
-                    sharePlaylist();
+                    objMain.sharePlaylist();
                     break;
                 case 7:
-                    simulatePlayback();
+                    objMain.simulatePlayback();
                     break;
                 case 8:
-                    buySong();
+                    objMain.buySong();
+                    break;
+                case 9:
+                    System.out.println("1) Total accumulated reproductions on the platform.\n"
+                            + "2) Most listened song genre for a specific user and for the platform.\n"
+                            + "3) Most listened podcast category for a specific user and for the platform."
+                            + "4) Name and number of total reproductions of the members of the Top 5 artists and the Top 5 content creators."
+                            + "5) Name, genre or category and total number of reproductions of each of the members of the Top 10 songs and the Top 10 podcast."
+                            + "6) Number of songs sold and total sales value ($) of each genre.\n"
+                            + "7) Total number of sales and total sales value ($) of the best-selling song on the platform.");
+                    int optionReport = input.nextInt();
+                    input.nextLine();
+                    switch (optionReport) {
+                        case 1:
+                            objMain.cumulativePlays();
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                        case 5:
+                            break;
+                        case 6:
+                            break;
+                        case 7:
+                            break;
+                        default:
+                            System.out.println("\nError. Type a valid option.");
+                            break;
+                    }
                     break;
                 case 0:
                     System.out.println("\nThank you for using the program. Until next time!");
@@ -92,7 +142,7 @@ public class NeoTunesApp {
      * <b><i>pos:</i></b> info <br>
      */
 
-    public static void menu() {
+    public void menu() {
         System.out.print("Select an option:\n" +
                 "1) Register producer users.\n" +
                 "2) Register consumer.\n" +
@@ -102,6 +152,7 @@ public class NeoTunesApp {
                 "6) Share a playlist.\n" +
                 "7) Simulate playback of a song or podcast.\n" +
                 "8) Buy a song.\n" +
+                "9) Generate reports.\n" +
                 "0) Exit.\n" +
                 "Option: ");
     }
@@ -114,7 +165,7 @@ public class NeoTunesApp {
      * 
      * @param type
      */
-    public static void addUser(int type) {
+    public void addUser(int type) {
         String nickname, name, id, urlImage;
         int linkUpYear, linkUpMonth, linkUpDay, counter = 0;
 
@@ -148,7 +199,7 @@ public class NeoTunesApp {
                 System.out.print("Type the URL with the distinctive image of the user: ");
                 urlImage = input.nextLine();
 
-                System.out.println("\n" + controller.addUser(nickname, id, LocalDate.of(linkUpYear,
+                System.out.println("\n" + objController.addUser(nickname, id, LocalDate.of(linkUpYear,
                         linkUpMonth, linkUpDay), name, urlImage, producerType) + "\n");
                 break;
             case 2:
@@ -177,7 +228,7 @@ public class NeoTunesApp {
                 input.nextLine();
 
                 System.out.println(
-                        "\n" + controller.addUser(nickname, id, LocalDate.of(linkUpYear, linkUpMonth, linkUpDay),
+                        "\n" + objController.addUser(nickname, id, LocalDate.of(linkUpYear, linkUpMonth, linkUpDay),
                                 consumerType) + "\n");
                 break;
 
@@ -191,7 +242,7 @@ public class NeoTunesApp {
      * <b><i>pos:</i></b> info <br>
      */
 
-    public static void addAudio() {
+    public void addAudio() {
         System.out.print(
                 "\nType the number that corresponds to the type of audio you want to register on the platform\n1) Song\n2) Podcast\nOption: ");
         int typeAudio = input.nextInt();
@@ -226,7 +277,7 @@ public class NeoTunesApp {
                 System.out.print("Sale value of the song: ");
                 double saleValue = input.nextDouble();
                 input.nextLine();
-                System.out.println("\n" + controller.addAudio(artistNickname, name, genre, urlAlbum,
+                System.out.println("\n" + objController.addAudio(artistNickname, name, genre, urlAlbum,
                         LocalTime.of(hours, minutes, seconds), saleValue) + "\n");
                 break;
             case 2:
@@ -258,7 +309,7 @@ public class NeoTunesApp {
                 input.nextLine();
 
                 System.out.println(
-                        "\n" + controller.addAudio(producerNickname, name, category, description, urlImage,
+                        "\n" + objController.addAudio(producerNickname, name, category, description, urlImage,
                                 LocalTime.of(hours, minutes, seconds)) + "\n");
                 break;
         }
@@ -271,7 +322,7 @@ public class NeoTunesApp {
      * <b><i>pre:</i></b> info <br>
      * <b><i>pos:</i></b> info <br>
      */
-    public static void createPlayList() {
+    public void createPlayList() {
         String audioName;
         ArrayList<String> audiosNames = new ArrayList<String>();
         System.out.print("\nType the nickname of the user to whom the playlist will be registered: ");
@@ -301,7 +352,7 @@ public class NeoTunesApp {
                     System.out.println("Name of the podcast: ");
                     audioName = input.nextLine();
                 }
-                if (controller.searchAudio(audioName) != null) {
+                if (objController.searchAudio(audioName) != null) {
                     audiosNames.add(audioName);
                     if (typeAudio == 'P')
                         System.out.print("Podcast added successfully!");
@@ -318,9 +369,9 @@ public class NeoTunesApp {
                     confirmation = input.nextLine().toUpperCase().charAt(0);
                 } while (confirmation != 'Y' && confirmation != 'N');
             } while (confirmation == 'Y');
-            System.out.println("\n" + controller.createPlaylist(nickname, playlistName, audiosNames) + "\n");
+            System.out.println("\n" + objController.createPlaylist(nickname, playlistName, audiosNames) + "\n");
         } else {
-            System.out.println("\n" + controller.createPlaylist(nickname, playlistName) + "\n");
+            System.out.println("\n" + objController.createPlaylist(nickname, playlistName) + "\n");
         }
 
     }
@@ -332,7 +383,7 @@ public class NeoTunesApp {
      * <b><i>pos:</i></b> info <br>
      */
 
-    public static void editPlaylist() {
+    public void editPlaylist() {
         System.out.print("\nType the nickname of the user who has registered the playlist: ");
         String nickname = input.nextLine();
         System.out.print("Type the playlist name: ");
@@ -368,7 +419,7 @@ public class NeoTunesApp {
                 System.out.print("Name of the song: ");
                 audioName = input.nextLine();
             }
-            if (controller.searchAudio(audioName) != null) {
+            if (objController.searchAudio(audioName) != null) {
                 if (action == 'A') {
                     audiosToAdd.add(audioName);
                     if (typeAudio == 'P')
@@ -393,7 +444,8 @@ public class NeoTunesApp {
                 confirmation = input.nextLine().toUpperCase().charAt(0);
             } while (confirmation != 'Y' && confirmation != 'N');
         } while (confirmation == 'Y');
-        System.out.println("\n" + controller.editPlaylist(nickname, playlistName, audiosToAdd, audiosToRemove) + "\n");
+        System.out
+                .println("\n" + objController.editPlaylist(nickname, playlistName, audiosToAdd, audiosToRemove) + "\n");
     }
 
     /**
@@ -403,12 +455,12 @@ public class NeoTunesApp {
      * <b><i>pos:</i></b> info <br>
      */
 
-    public static void sharePlaylist() {
+    public void sharePlaylist() {
         System.out.print("\nPlayer nickname: ");
         String nickname = input.nextLine();
         System.out.print("Playlist name: ");
         String playlistName = input.nextLine();
-        System.out.println("\n" + controller.sharePlaylist(nickname, playlistName) + "\n");
+        System.out.println("\n" + objController.sharePlaylist(nickname, playlistName) + "\n");
 
     }
 
@@ -418,11 +470,11 @@ public class NeoTunesApp {
      * <b><i>pre:</i></b> info <br>
      * <b><i>pos:</i></b> info <br>
      */
-    public static void simulatePlayback() {
-        String songs = controller.showSongs();
+    public void simulatePlayback() {
+        String songs = objController.showSongs();
         System.out.print("\n" + songs);
 
-        String podcasts = controller.showPodcasts();
+        String podcasts = objController.showPodcasts();
         System.out.print("\n" + podcasts);
 
         if (!songs.equalsIgnoreCase("There are no songs registered on the platform.")
@@ -438,13 +490,13 @@ public class NeoTunesApp {
                 } else {
                     System.out.print("Name of the audio that user want to play: ");
                     String audioName = input.nextLine();
-                    if (controller.isSong(audioName))
+                    if (objController.isSong(audioName))
                         counter++;
                     if (counter == 3) {
-                        playing = controller.simulatePlayback(nickname, audioName, true);
+                        playing = objController.simulatePlayback(nickname, audioName, true);
                         counter = 0;
                     } else
-                        playing = controller.simulatePlayback(nickname, audioName, false);
+                        playing = objController.simulatePlayback(nickname, audioName, false);
                     System.out.println(playing);
                 }
                 if (!playing.equalsIgnoreCase("Error. User not found.\n")) {
@@ -465,8 +517,8 @@ public class NeoTunesApp {
      * <b><i>pre:</i></b> info <br>
      * <b><i>pos:</i></b> info <br>
      */
-    public static void buySong() {
-        String songs = controller.showSongs();
+    public void buySong() {
+        String songs = objController.showSongs();
         System.out.print("\n" + songs);
         if (!songs.equalsIgnoreCase("There are no songs registered on the platform.")) {
             System.out.print("Nickname of the user who will buy the song: ");
@@ -482,9 +534,13 @@ public class NeoTunesApp {
             System.out.print("Day: ");
             int day = input.nextInt();
             input.nextLine();
-            System.out.println("\n" + controller.buySong(nickname, songName,
+            System.out.println("\n" + objController.buySong(nickname, songName,
                     LocalDate.of(year, month, day)) + "\n");
         }
+
+    }
+
+    public void cumulativePlays() {
 
     }
 
