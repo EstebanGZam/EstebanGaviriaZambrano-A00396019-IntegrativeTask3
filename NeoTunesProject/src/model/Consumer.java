@@ -9,7 +9,9 @@ public abstract class Consumer extends User {
     private LocalTime timePlayedSongs;
     private LocalTime timePlayedPodcast;
     private String mostListenedGenre;
+    private int playsMostListenedGenre;
     private String mostListenedCategory;
+    private int playsMostListenedCategory;
     private String mostStreamedArtist;
     private String mostStreamedContentCreator;
 
@@ -63,6 +65,69 @@ public abstract class Consumer extends User {
                 playbackHistory.setFashion(playbackHistory.getFashion() + 1);
                 break;
         }
+    }
+
+    public void calculateMostListenedGenre() {
+        int[] reproductions = { playbackHistory.getRock(), playbackHistory.getPop(), playbackHistory.getTrap(),
+                playbackHistory.getHouse() };
+        String mostReproduced = null;
+        int higher = 0;
+
+        for (int x = 0; x < reproductions.length; x++) {
+            if (reproductions[x] > higher) {
+                higher = reproductions[x];
+                if (x == 0)
+                    mostReproduced = "Rock";
+                else if (x == 1)
+                    mostReproduced = "Pop";
+                else if (x == 2)
+                    mostReproduced = "Trap";
+                else if (x == 3)
+                    mostReproduced = "House";
+            }
+        }
+        this.mostListenedGenre = mostReproduced;
+        this.playsMostListenedGenre = higher;
+    }
+
+    public void calculateMostListenedCategory() {
+        int[] reproductions = { playbackHistory.getPolitic(), playbackHistory.getEntertainment(),
+                playbackHistory.getVideoGame(),
+                playbackHistory.getFashion() };
+        String mostReproduced = null;
+        int higher = 0;
+
+        for (int x = 0; x < reproductions.length; x++) {
+            if (reproductions[x] > higher) {
+                higher = reproductions[x];
+                if (x == 0)
+                    mostReproduced = "Politic";
+                else if (x == 1)
+                    mostReproduced = "Entertainment";
+                else if (x == 2)
+                    mostReproduced = "Video games";
+                else if (x == 3)
+                    mostReproduced = "Fashion";
+            }
+        }
+        this.mostListenedCategory = mostReproduced;
+        this.playsMostListenedCategory = higher;
+    }
+
+    public String getMostListenedGenre() {
+        return mostListenedGenre;
+    }
+
+    public int getPlaysMostListenedGenre() {
+        return playsMostListenedGenre;
+    }
+
+    public String getMostListenedCategory() {
+        return mostListenedCategory;
+    }
+
+    public int getPlaysMostListenedCategory() {
+        return playsMostListenedCategory;
     }
 
 }

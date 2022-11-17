@@ -7,7 +7,7 @@ public class Song extends Audio implements Salable {
 	// attributes
 	private String urlAlbum;
 	private double saleValue;
-	private int numberSales;
+	private int numberSales = 0;
 
 	// relations
 	private Genre genre;

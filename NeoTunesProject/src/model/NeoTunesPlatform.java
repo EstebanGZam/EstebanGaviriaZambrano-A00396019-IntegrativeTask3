@@ -528,9 +528,11 @@ public class NeoTunesPlatform {
             if (objAudio instanceof Podcast) {
                 Podcast objPodcast = (Podcast) objAudio;
                 objConsumer.addPlayback(objPodcast.getCategory());
+                objConsumer.calculateMostListenedCategory();
             } else if (objAudio instanceof Song) {
                 Song objSong = (Song) objAudio;
                 objConsumer.addPlayback(objSong.getGenre());
+                objConsumer.calculateMostListenedGenre();
             }
         } else if (objUser == null) {
             playing = "Error. User not found.\n";
@@ -569,6 +571,137 @@ public class NeoTunesPlatform {
             message = "Error. Song not found. Please check the name you entered and try again.";
         }
         return message;
+    }
+
+    public String cumulativePlays() {
+        int songsPlays = 0, podcastsPlays = 0;
+        String report = "There are no reproductions on the platform.";
+        for (int i = 0; i < audios.size(); i++) {
+            Audio objAudio = audios.get(i);
+            if (objAudio instanceof Song)
+                songsPlays += objAudio.getNumberOfPlays();
+            else if (objAudio instanceof Podcast)
+                podcastsPlays += objAudio.getNumberOfPlays();
+        }
+        if (songsPlays > 0 || podcastsPlays > 0)
+            report = "Total songs plays: " + songsPlays + "\nTotal podcasts plays: " + podcastsPlays;
+        return report;
+    }
+
+    public String mostListenedGenre(String nickname) {
+        User objUser = searchUser(nickname);
+        String report = null, mostListenedGenre = null;
+        int playsMostListenedGenre = 0;
+
+        if (objUser != null && objUser instanceof Consumer) {
+            report = "User has no plays.";
+            String mostListenedGenreUser = ((Consumer) objUser).getMostListenedGenre();
+            int playsMostListenedGenreUser = ((Consumer) objUser).getPlaysMostListenedGenre();
+            if (mostListenedGenreUser != null) {
+                report = "Genre most listened by user " + nickname + ": " + mostListenedGenreUser
+                        + "\nNumber of reproductions: " + playsMostListenedGenreUser;
+            }
+        }
+        int rock = 0, pop = 0, trap = 0, house = 0;
+        for (int i = 0; i < audios.size(); i++) {
+            Audio objAudio = audios.get(i);
+            if (objAudio instanceof Song) {
+                switch (((Song) objAudio).getGenre()) {
+                    case ROCK:
+                        rock += objAudio.getNumberOfPlays();
+                        break;
+                    case POP:
+                        pop += objAudio.getNumberOfPlays();
+                        break;
+                    case TRAP:
+                        trap += objAudio.getNumberOfPlays();
+                        break;
+                    case HOUSE:
+                        house += objAudio.getNumberOfPlays();
+                        break;
+                }
+            }
+        }
+
+        int[] reproductions = { rock, pop, trap, house };
+        for (int x = 0; x < reproductions.length; x++) {
+            if (reproductions[x] > playsMostListenedGenre) {
+                playsMostListenedGenre = reproductions[x];
+                if (x == 0)
+                    mostListenedGenre = "Rock";
+                else if (x == 1)
+                    mostListenedGenre = "Pop";
+                else if (x == 2)
+                    mostListenedGenre = "Trap";
+                else if (x == 3)
+                    mostListenedGenre = "House";
+            }
+        }
+        if (mostListenedGenre == null)
+            report = "There are no reproductions on the platform.";
+        else
+            report += "\nGenre most listened on the platform: " + mostListenedGenre
+                    + "\nNumber of reproductions: " + playsMostListenedGenre;
+
+        return report;
+    }
+
+    public String mostListenedCategory(String nickname) {
+        User objUser = searchUser(nickname);
+        String report = null, mostListenedCategory = null;
+        int playsMostListenedCategory = 0;
+
+        if (objUser != null && objUser instanceof Consumer) {
+            report = "User has no plays.";
+            String mostListenedCategoryUser = ((Consumer) objUser).getMostListenedCategory();
+            int playsMostListenedCategoryUser = ((Consumer) objUser).getPlaysMostListenedCategory();
+            if (mostListenedCategoryUser != null) {
+                report = "Category most listened by user " + nickname + ": " + mostListenedCategoryUser
+                        + "\nNumber of reproductions: " + playsMostListenedCategoryUser;
+            }
+        }
+        int politic = 0, entertainment = 0, videoGame = 0, fashion = 0;
+        for (int i = 0; i < audios.size(); i++) {
+            Audio objAudio = audios.get(i);
+            if (objAudio instanceof Podcast) {
+                switch (((Podcast) objAudio).getCategory()) {
+                    case POLITIC:
+                        politic += objAudio.getNumberOfPlays();
+                        break;
+                    case ENTERTAINMENT:
+                        entertainment += objAudio.getNumberOfPlays();
+                        break;
+                    case VIDEO_GAME:
+                        videoGame += objAudio.getNumberOfPlays();
+                        break;
+                    case FASHION:
+                        fashion += objAudio.getNumberOfPlays();
+                        break;
+                }
+            }
+        }
+
+        int[] reproductions = { politic, entertainment, videoGame, fashion };
+        for (int x = 0; x < reproductions.length; x++) {
+            if (reproductions[x] > playsMostListenedCategory) {
+                playsMostListenedCategory = reproductions[x];
+                if (x == 0)
+                    mostListenedCategory = "Politic";
+                else if (x == 1)
+                    mostListenedCategory = "Entertainment";
+                else if (x == 2)
+                    mostListenedCategory = "Video games";
+                else if (x == 3)
+                    mostListenedCategory = "Fashion";
+            }
+        }
+        if (mostListenedCategory == null)
+            report = "There are no reproductions on the platform.";
+        else
+            report += "\nCategory most listened on the platform: " + mostListenedCategory
+                    + "\nNumber of reproductions: " + playsMostListenedCategory;
+
+        return report;
     }
 
 }

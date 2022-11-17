@@ -12,7 +12,7 @@ public class NeoTunesApp {
     // relations
     /**
      * <b>name:</b> input <br>
-     * Instance line of the Scanner object.<br>
+     * Instance line of the Scanner object.
      */
     private static Scanner input = new Scanner(System.in);
     private static NeoTunesPlatform objController;
@@ -36,11 +36,13 @@ public class NeoTunesApp {
      */
     public static void main(String[] args) {
         NeoTunesApp objMain = new NeoTunesApp();
+        // Test cases
         System.out.println(
                 objController.addUser("Bad bunny", "111", LocalDate.of(2022, 5, 10), "Benito", "soyunaurl.com", 2));
         System.out.println(
                 objController.addUser("Cepeda", "222", LocalDate.of(2022, 5, 10), "Andres", "soyunaurl.com", 2));
         System.out.println(objController.addUser("Juan", "123", LocalDate.of(2022, 7, 27), 1));
+        System.out.println(objController.addUser("Esteban", "1234", LocalDate.of(2022, 7, 27), 2));
         System.out
                 .println(objController.addAudio("Bad bunny", "Callaita", 1, "Soyunaurl.com", LocalTime.of(0, 3, 10),
                         10));
@@ -64,6 +66,8 @@ public class NeoTunesApp {
         audiosAdd.add("El sentido de la vida");
         System.out.println(objController.editPlaylist("Juan", "Salsa", audiosAdd, audiosToRemove));
         System.out.println(objController.sharePlaylist("Juan", "Salsa") + "\n");
+        // End of test cases
+
         int option = 0;
         do {
             objMain.menu();
@@ -95,13 +99,14 @@ public class NeoTunesApp {
                     objMain.buySong();
                     break;
                 case 9:
-                    System.out.println("1) Total accumulated reproductions on the platform.\n"
+                    System.out.print("\n1) Total accumulated reproductions on the platform.\n"
                             + "2) Most listened song genre for a specific user and for the platform.\n"
-                            + "3) Most listened podcast category for a specific user and for the platform."
-                            + "4) Name and number of total reproductions of the members of the Top 5 artists and the Top 5 content creators."
-                            + "5) Name, genre or category and total number of reproductions of each of the members of the Top 10 songs and the Top 10 podcast."
+                            + "3) Most listened podcast category for a specific user and for the platform.\n"
+                            + "4) Name and number of total reproductions of the members of the Top 5 artists and the Top 5 content creators.\n"
+                            + "5) Name, genre or category and total number of reproductions of each of the members of the Top 10 songs and the Top 10 podcast.\n"
                             + "6) Number of songs sold and total sales value ($) of each genre.\n"
-                            + "7) Total number of sales and total sales value ($) of the best-selling song on the platform.");
+                            + "7) Total number of sales and total sales value ($) of the best-selling song on the platform.\n"
+                            + "Option: ");
                     int optionReport = input.nextInt();
                     input.nextLine();
                     switch (optionReport) {
@@ -109,8 +114,10 @@ public class NeoTunesApp {
                             objMain.cumulativePlays();
                             break;
                         case 2:
+                            objMain.mostListenedGenre();
                             break;
                         case 3:
+                            objMain.mostListenedCategory();
                             break;
                         case 4:
                             break;
@@ -541,7 +548,19 @@ public class NeoTunesApp {
     }
 
     public void cumulativePlays() {
+        System.out.println("\n" + objController.cumulativePlays() + "\n");
+    }
 
+    public void mostListenedGenre() {
+        System.out.print("\nType the user nickname: ");
+        String nickname = input.nextLine();
+        System.out.println("\n" + objController.mostListenedGenre(nickname) + "\n");
+    }
+
+    public void mostListenedCategory() {
+        System.out.print("\nType the user nickname: ");
+        String nickname = input.nextLine();
+        System.out.println("\n" + objController.mostListenedCategory(nickname) + "\n");
     }
 
 }
