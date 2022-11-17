@@ -14,27 +14,33 @@ public class Premium extends Consumer {
         buys = new ArrayList<Buy>();
     }
 
-    
-    /** 
+    /**
      * @param name
-     * @param matriz
+     * @param matrix
      * @param code
      * @param audios
      * @return String
      */
     @Override
-    public String createPlayList(String name, int[][] matriz, String code, ArrayList<Audio> audios) {
-        playlists.add(new PlayList(name, matriz, code, audios));
-        String message = "Playlist added successfully!";
+    public String createPlayList(String name, int[][] matrix, String code, ArrayList<Audio> audios) {
+        playlists.add(new PlayList(name, matrix, code, audios));
+        String message = "Playlist created successfully!";
         return message;
     }
 
-    
-    /** 
+    /**
      * @return ArrayList<PlayList>
      */
     public ArrayList<PlayList> getPlayList() {
         return playlists;
+    }
+
+    @Override
+    public String buySong(Song song, LocalDate date) {
+        buys.add(new Buy(song, date));
+        String message = "Song bought successfully";
+        song.sale();
+        return message;
     }
 
 }

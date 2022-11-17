@@ -22,7 +22,7 @@ public class Podcast extends Audio {
 		super(name, duration);
 		switch (category) {
 			case 1:
-				this.category = Category.POLITICS;
+				this.category = Category.POLITIC;
 				break;
 			case 2:
 				this.category = Category.ENTERTAINMENT;
@@ -37,6 +37,22 @@ public class Podcast extends Audio {
 		}
 		this.urlImage = urlImage;
 		this.description = description;
+	}
+
+	/**
+	 * @return String
+	 */
+	@Override
+	public String play() {
+		String message = super.play() + "\nPodcast: " + super.getName();
+		return message;
+	}
+
+	/**
+	 * @return Category
+	 */
+	public Category getCategory() {
+		return category;
 	}
 
 }

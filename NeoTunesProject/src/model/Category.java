@@ -1,7 +1,7 @@
 package model;
 
 public enum Category {
-	POLITICS,
+	POLITIC,
 	ENTERTAINMENT,
 	VIDEO_GAME,
 	FASHION

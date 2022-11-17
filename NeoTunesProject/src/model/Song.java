@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalTime;
 
-public class Song extends Audio implements Buyable {
+public class Song extends Audio implements Salable {
 
 	// attributes
 	private String urlAlbum;
@@ -33,8 +33,24 @@ public class Song extends Audio implements Buyable {
 	}
 
 	@Override
-	public void buy() {
+	public void sale() {
+		this.numberSales++;
+	}
 
+	/**
+	 * @return String
+	 */
+	@Override
+	public String play() {
+		String message = super.play() + "\nSong: " + super.getName();
+		return message;
+	}
+
+	/**
+	 * @return Genre
+	 */
+	public Genre getGenre() {
+		return genre;
 	}
 
 }

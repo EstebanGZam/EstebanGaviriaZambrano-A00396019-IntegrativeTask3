@@ -7,7 +7,7 @@ public class PlayList {
 	// attributes
 	private String name;
 	private String code;
-	private int[][] matriz;
+	private int[][] matrix;
 
 	// relations
 	private ArrayList<Audio> audios;
@@ -17,15 +17,14 @@ public class PlayList {
 	 * @param name
 	 * @param code
 	 */
-	public PlayList(String name, int[][] matriz, String code, ArrayList<Audio> audios) {
+	public PlayList(String name, int[][] matrix, String code, ArrayList<Audio> audios) {
 		this.name = name;
-		this.matriz = matriz;
+		this.matrix = matrix;
 		this.code = code;
 		this.audios = audios;
 	}
 
-	
-	/** 
+	/**
 	 * @param name
 	 * @return int
 	 */
@@ -43,67 +42,59 @@ public class PlayList {
 		return position;
 	}
 
-	
-	/** 
+	/**
 	 * @param audio
 	 */
 	public void addAudio(Audio audio) {
 		audios.add(audio);
 	}
 
-	
-	/** 
+	/**
 	 * @param position
 	 */
 	public void removeAudio(int position) {
 		audios.remove(position);
 	}
 
-	
-	/** 
+	/**
 	 * @return ArrayList<Audio>
 	 */
 	public ArrayList<Audio> getAudios() {
 		return this.audios;
 	}
 
-	
-	/** 
+	/**
 	 * @return String
 	 */
 	public String getName() {
 		return this.name;
 	}
 
-	
-	/** 
+	/**
 	 * @return String
 	 */
 	public String getCode() {
 		return this.code;
 	}
 
-	
-	/** 
+	/**
 	 * @param code
 	 */
 	public void setCode(String code) {
 		this.code = code;
 	}
 
-	
-	/** 
-	 * @param matriz
+	/**
+	 * @param matrix
 	 */
-	public void setMatriz(int[][] matriz) {
-		this.matriz = matriz;
+	public void setmatrix(int[][] matrix) {
+		this.matrix = matrix;
 	}
 
-	
-	/** 
+	/**
 	 * @return int[][]
 	 */
-	public int[][] getMatriz() {
-		return this.matriz;
+	public int[][] getmatrix() {
+		return this.matrix;
 	}
 }

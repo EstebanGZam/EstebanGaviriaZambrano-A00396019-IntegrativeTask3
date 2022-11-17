@@ -5,6 +5,7 @@ public class Advertisement implements Playable {
 	private String sponsor;
 	private String announcementMessage;
 
+	// methods
 	/**
 	 * 
 	 * @param sponsor
@@ -15,9 +16,14 @@ public class Advertisement implements Playable {
 		this.announcementMessage = announcementMessage;
 	}
 
+	
+	/** 
+	 * @return String
+	 */
 	@Override
-	public void play() {
-
+	public String play() {
+		String advertisements = "Playing advertisement...\n" + this.sponsor + " - " + this.announcementMessage + "\n";
+		return advertisements;
 	}
 
 }

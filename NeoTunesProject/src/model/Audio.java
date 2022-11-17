@@ -6,7 +6,7 @@ public class Audio implements Playable {
 
 	private String name;
 	private LocalTime duration;
-	private int numberOfPlays;
+	private int numberOfPlays = 0;
 
 	/**
 	 * 
@@ -18,16 +18,37 @@ public class Audio implements Playable {
 		this.duration = duration;
 	}
 
-	@Override
-	public void play() {
-	}
-
 	
 	/** 
 	 * @return String
 	 */
+	@Override
+	public String play() {
+		String message = "\nPlaying...";
+		return message;
+	}
+
+	/**
+	 * @return String
+	 */
 	public String getName() {
 		return this.name;
+	}
+
+	
+	/** 
+	 * @return int
+	 */
+	public int getNumberOfPlays() {
+		return this.numberOfPlays;
+	}
+
+	
+	/** 
+	 * @param numberOfPlays
+	 */
+	public void setNumberOfPlays(int numberOfPlays) {
+		this.numberOfPlays = numberOfPlays;
 	}
 
 }

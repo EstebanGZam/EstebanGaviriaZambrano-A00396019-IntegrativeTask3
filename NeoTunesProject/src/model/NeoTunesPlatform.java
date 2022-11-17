@@ -10,12 +10,17 @@ public class NeoTunesPlatform {
     // relations
     private ArrayList<User> users;
     private ArrayList<Audio> audios;
+    private ArrayList<Advertisement> advertisements;
     private Random random = new Random();
 
     // methods
     public NeoTunesPlatform() {
         users = new ArrayList<User>();
         audios = new ArrayList<Audio>();
+        advertisements = new ArrayList<>();
+        advertisements.add(new Advertisement("Nike", "Just Do It."));
+        advertisements.add(new Advertisement("Coca-Cola", "Open Happiness."));
+        advertisements.add(new Advertisement("M&M's", "Melts in Your Mouth, Not in Your Hands."));
     }
 
     /**
@@ -214,14 +219,14 @@ public class NeoTunesPlatform {
                         audios.add(searchAudio(audiosNames.get(i)));
                     }
                 }
-                int[][] matriz = generateMatriz();
+                int[][] matrix = generateMatrix();
                 if (objUser instanceof Standard) {
                     Standard objStandard = (Standard) objUser;
-                    message = objStandard.createPlayList(playListName, matriz, generatePlaylistCode(audios, matriz),
+                    message = objStandard.createPlayList(playListName, matrix, generatePlaylistCode(audios, matrix),
                             audios);
                 } else if (objUser instanceof Premium) {
                     Premium objPremium = (Premium) objUser;
-                    message = objPremium.createPlayList(playListName, matriz, generatePlaylistCode(audios, matriz),
+                    message = objPremium.createPlayList(playListName, matrix, generatePlaylistCode(audios, matrix),
                             audios);
                 }
             }
@@ -292,23 +297,24 @@ public class NeoTunesPlatform {
     /**
      * @return int[][]
      */
-    public int[][] generateMatriz() {
-        int[][] matriz = new int[6][6];
+    public int[][] generateMatrix() {
+        int rows = 6, columns = 6;
+        int[][] matrix = new int[rows][columns];
 
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 6; j++) {
-                matriz[i][j] = (int) (random.nextDouble() * 10);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                matrix[i][j] = (int) (random.nextDouble() * 10);
             }
         }
-        return matriz;
+        return matrix;
     }
 
     /**
      * @param audios
-     * @param matriz
+     * @param matrix
      * @return String
      */
-    public String generatePlaylistCode(ArrayList<Audio> audios, int[][] matriz) {
+    public String generatePlaylistCode(ArrayList<Audio> audios, int[][] matrix) {
         String code = "";
         boolean songs = false, podcasts = false;
 
@@ -319,39 +325,39 @@ public class NeoTunesPlatform {
                 podcasts = true;
         }
         if (songs && !podcasts) {
-            for (int i = 6; i > 0; i--) {
-                code += matriz[(i - 1)][0] + "";
+            for (int i = matrix.length; i > 0; i--) {
+                code += matrix[(i - 1)][0] + "";
                 if ((i - 1) == 0) {
-                    for (int j = 1; j < 6; j++) {
-                        code += matriz[j][j] + "";
-                        if (((j + 1) == 6)) {
-                            for (int x = 5; x > 0; x--) {
-                                code += matriz[(x - 1)][j] + "";
+                    for (int j = 1; j < matrix[0].length; j++) {
+                        code += matrix[j][j] + "";
+                        if (((j + 1) == matrix[0].length)) {
+                            for (int x = (matrix.length - 1); x > 0; x--) {
+                                code += matrix[(x - 1)][j] + "";
                             }
                         }
                     }
                 }
             }
         } else if (!songs && podcasts) {
-            for (int i = 0; i < 6; i++) {
-                code += matriz[0][i] + "";
-                if ((i + 1) == 3) {
-                    for (int j = 1; j < 6; j++) {
-                        code += matriz[j][i] + "";
-                        if ((j + 1) == 6) {
+            for (int i = 0; i < matrix.length; i++) {
+                code += matrix[0][i] + "";
+                if ((i + 1) == (matrix.length / 2)) {
+                    for (int j = 1; j < matrix[0].length; j++) {
+                        code += matrix[j][i] + "";
+                        if ((j + 1) == matrix[0].length) {
                             for (int x = j; x > -1; x--) {
-                                code += matriz[x][(i + 1)] + "";
+                                code += matrix[x][(i + 1)] + "";
                             }
                         }
                     }
-                    i = 3;
+                    i++;
                 }
             }
         } else if (songs && podcasts) {
-            for (int i = 5; i > -1; i--) {
-                for (int j = 5; j > -1; j--) {
+            for (int i = matrix.length - 1; i > -1; i--) {
+                for (int j = matrix.length - 1; j > -1; j--) {
                     if ((i + j) > 1 && (i + j) % 2 != 0) {
-                        code += matriz[i][j] + "";
+                        code += matrix[i][j] + "";
                     }
                 }
             }
@@ -393,9 +399,9 @@ public class NeoTunesPlatform {
                     message += "Audios removed successfully!";
                 }
                 if (audiosToAdd != null || audiosToRemove != null) {
-                    int[][] matriz = generateMatriz();
-                    objPlayList.setMatriz(matriz);
-                    objPlayList.setCode(generatePlaylistCode(objPlayList.getAudios(), matriz));
+                    int[][] matrix = generateMatrix();
+                    objPlayList.setmatrix(matrix);
+                    objPlayList.setCode(generatePlaylistCode(objPlayList.getAudios(), matrix));
                 } else
                     message = "Alert. Nothing changed in the playlist, because their audios were not added or removed.";
             } else {
@@ -436,22 +442,131 @@ public class NeoTunesPlatform {
         String message = null;
         if (objPlayList != null) {
             message = "\nOrigin Matrix: \n";
-            int[][] matriz = objPlayList.getMatriz();
-            for (int i = 0; i < 6; i++) {
-                for (int j = 0; j < 6; j++) {
-                    if ((i + j) == 0)
-                        message += "[ " + matriz[i][j] + ", ";
-                    else if (i == 5 && j == 5)
-                        message += matriz[i][j] + " ]\n";
-                    else if (j == 5)
-                        message += matriz[i][j] + "\n  ";
-                    else
-                        message += matriz[i][j] + ", ";
+            int[][] matrix = objPlayList.getmatrix();
+            for (int i = 0; i < matrix.length; i++) {
+                message += "\n  ";
+                for (int j = 0; j < matrix[0].length; j++) {
+                    message += matrix[i][j] + "  ";
                 }
             }
-            message += "\nPlaylist identifier code: " + objPlayList.getCode();
+            message += "\n\nPlaylist identifier code: " + objPlayList.getCode();
         } else {
             message = "Error. Playlist not found. Check the data entered and try again.";
+        }
+        return message;
+    }
+
+    /**
+     * @return String
+     */
+    public String showSongs() {
+        String songs = "List of songs registered on the platform:\n";
+        if (audios.size() > 0) {
+            for (int i = 0; i < audios.size(); i++) {
+                if (audios.get(i) instanceof Song)
+                    songs += "  - " + audios.get(i).getName() + "\n";
+            }
+        }
+        if (songs.equals("List of songs registered on the platform:\n"))
+            songs = "There are no songs registered on the platform.";
+
+        return songs;
+    }
+
+    /**
+     * @return String
+     */
+    public String showPodcasts() {
+        String podcasts = "List of podcasts registered on the platform:\n";
+        if (audios.size() > 0) {
+            for (int i = 0; i < audios.size(); i++) {
+                if (audios.get(i) instanceof Podcast)
+                    podcasts += "   - " + audios.get(i).getName() + "\n";
+            }
+        }
+        if (podcasts.equals("List of podcasts registered on the platform:\n"))
+            podcasts = "There are no podcasts registered on the platform.";
+
+        return podcasts;
+    }
+
+    /**
+     * @param audioName
+     * @return boolean
+     */
+    public boolean isSong(String audioName) {
+
+        boolean song = false;
+
+        Audio objAudio = searchAudio(audioName);
+        if (objAudio != null && objAudio instanceof Song)
+            song = true;
+        return song;
+
+    }
+
+    /**
+     * @param option
+     * @return String
+     */
+    public String simulatePlayback(String nickname, String audioName, boolean ad) {
+        Audio objAudio = searchAudio(audioName);
+        User objUser = searchUser(nickname);
+        String playing = null;
+
+        if (objAudio != null && (objUser != null && objUser instanceof Consumer)) {
+            Consumer objConsumer = (Consumer) objUser;
+            playing = "";
+            if ((objConsumer instanceof Standard && objAudio instanceof Podcast)
+                    || (objConsumer instanceof Standard && ad)) {
+                int numAd = random.nextInt(2 + 1);
+                playing += "\n" + advertisements.get(numAd).play();
+            }
+            playing += objAudio.play() + "\n";
+            objAudio.setNumberOfPlays(objAudio.getNumberOfPlays() + 1);
+
+            if (objAudio instanceof Podcast) {
+                Podcast objPodcast = (Podcast) objAudio;
+                objConsumer.addPlayback(objPodcast.getCategory());
+            } else if (objAudio instanceof Song) {
+                Song objSong = (Song) objAudio;
+                objConsumer.addPlayback(objSong.getGenre());
+            }
+        } else if (objUser == null) {
+            playing = "Error. User not found.\n";
+        } else if (objAudio == null) {
+            playing = "Error. Audio not found. Please check the name you entered and try again.";
+        } else {
+            playing = "Error. Only consumer users can play audios.";
+        }
+        return playing;
+    }
+
+    /**
+     * @param nickname
+     * @param audioName
+     * @return String
+     */
+    public String buySong(String nickname, String audioName, LocalDate date) {
+
+        Audio objAudio = searchAudio(audioName);
+        User objUser = searchUser(nickname);
+        String message = null;
+
+        if (objUser != null && objUser instanceof Consumer && objAudio != null && objAudio instanceof Song) {
+            Song objSong = (Song) objAudio;
+            message = "";
+            if ((objUser instanceof Standard)) {
+                message = ((Standard) objUser).buySong(objSong, date);
+            } else if (objUser instanceof Premium) {
+                message = ((Premium) objUser).buySong(objSong, date);
+            }
+        } else if (!(objUser instanceof Consumer) || objUser == null) {
+            message = "Error. Consumer user not found.";
+        } else if (objAudio instanceof Podcast) {
+            message = "Error. A user can only buy songs.";
+        } else {
+            message = "Error. Song not found. Please check the name you entered and try again.";
         }
         return message;
     }

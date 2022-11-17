@@ -20,41 +20,64 @@ public class Standard extends Consumer {
         buys = new Buy[BUYS];
     }
 
-    
-    /** 
+    /**
      * @param name
-     * @param matriz
+     * @param matrix
      * @param code
      * @param audios
      * @return String
      */
     @Override
-    public String createPlayList(String name, int[][] matriz, String code, ArrayList<Audio> audios) {
+    public String createPlayList(String name, int[][] matrix, String code, ArrayList<Audio> audios) {
 
         String message = null;
-        boolean stop = false;
+        boolean created = false;
 
-        for (int i = 0; i < PLAYLISTMAX && !stop; i++) {
+        for (int i = 0; i < PLAYLISTMAX && !created; i++) {
             if (playlists[i] == null) {
-                playlists[i] = new PlayList(name, matriz, code, audios);
-                message = "Playlist added successfully!";
-                stop = true;
+                playlists[i] = new PlayList(name, matrix, code, audios);
+                message = "Playlist created successfully!";
+                created = true;
             }
         }
-        if (!stop)
+        if (!created)
             message = "Error. Standard user " + this.getNickname() + " has reached the maximum number of playlists.";
 
         return message;
 
     }
 
-    
-    /** 
+    /**
      * @param position
      * @return PlayList
      */
     public PlayList getPlayList(int position) {
         return playlists[position];
+    }
+
+    /**
+     * @param nameSong
+     * @return String
+     */
+    @Override
+    public String buySong(Song song, LocalDate date) {
+
+        String message = null;
+        boolean bought = false;
+
+        for (int i = 0; i < BUYS && !bought; i++) {
+            if (buys[i] == null) {
+                buys[i] = new Buy(song, date);
+                song.sale();
+                message = "Song bought successfully!";
+                bought = true;
+            }
+        }
+        if (!bought)
+            message = "Error. Standard user " + this.getNickname() + " has reached the purchase limit.";
+
+        return message;
+
     }
 
 }

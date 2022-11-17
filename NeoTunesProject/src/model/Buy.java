@@ -1,20 +1,19 @@
 package model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Buy {
 
 	// attributes
-	private LocalDateTime date;
-
-	// relations
-	private Buyable buy;
+	private Song song;
+	private LocalDate date;
 
 	/**
 	 * 
 	 * @param date
 	 */
-	public Buy(LocalDateTime date) {
+	public Buy(Song song, LocalDate date) {
+		this.song = song;
 		this.date = date;
 	}
 
