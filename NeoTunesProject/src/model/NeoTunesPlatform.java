@@ -807,4 +807,97 @@ public class NeoTunesPlatform {
         return position;
     }
 
+    public String getTopTenSongs() {
+        ArrayList<Audio> songs = new ArrayList<Audio>();
+        String report = "There are no songs registered on the platform.";
+
+        for (int i = 0; i < audios.size(); i++) {
+            Audio objAudio = audios.get(i);
+            if (objAudio instanceof Song) {
+                songs.add((Song) objAudio);
+            }
+        }
+        if (songs.size() > 0) {
+            Song[] topSongs = new Song[10];
+
+            for (int x = 0; x < topSongs.length; x++) {
+
+                int pos = getTopAudio(songs);
+                if (pos != -1) {
+                    topSongs[x] = (Song) songs.get(pos);
+                    songs.remove(pos);
+                }
+
+            }
+
+            report = "Songs top ten: \n";
+            for (int m = 0; m < topSongs.length; m++) {
+                if (topSongs[m] != null) {
+                    report += "[ " + (m + 1) + " ] " + topSongs[m].toString() + "\n";
+                } else {
+                    report += "There are no more songs registered on the platform.\n";
+                    m = topSongs.length;
+                }
+            }
+            if (report.equalsIgnoreCase(
+                    "Songs top ten: \nThere are no more songs registered on the platform.\n"))
+                report = "There are no songs registered on the platform.";
+
+        }
+        return report;
+    }
+
+    public String getTopTenPodcasts() {
+        ArrayList<Audio> podcasts = new ArrayList<Audio>();
+        String report = "There are no podcasts registered on the platform.";
+
+        for (int i = 0; i < audios.size(); i++) {
+            Audio objAudio = audios.get(i);
+            if (objAudio instanceof Podcast) {
+                podcasts.add((Podcast) objAudio);
+            }
+        }
+        if (podcasts.size() > 0) {
+            Podcast[] topPodcasts = new Podcast[10];
+
+            for (int x = 0; x < topPodcasts.length; x++) {
+
+                int pos = getTopAudio(podcasts);
+                if (pos != -1) {
+                    topPodcasts[x] = (Podcast) podcasts.get(pos);
+                    podcasts.remove(pos);
+                }
+
+            }
+
+            report = "Podcasts top ten: \n";
+            for (int m = 0; m < topPodcasts.length; m++) {
+                if (topPodcasts[m] != null) {
+                    report += "[ " + (m + 1) + " ] " + topPodcasts[m].toString() + "\n";
+                } else {
+                    report += "There are no more podcasts registered on the platform.\n";
+                    m = topPodcasts.length;
+                }
+            }
+            if (report.equalsIgnoreCase(
+                    "Podcasts top ten: \nThere are no more podcasts registered on the platform.\n"))
+                report = "There are no podcasts registered on the platform.";
+
+        }
+        return report;
+    }
+
+    public int getTopAudio(ArrayList<Audio> audios) {
+        int position = -1;
+        int plays = 0;
+        for (int i = 0; i < audios.size(); i++) {
+            Audio objAudio = audios.get(i);
+            if (objAudio.getNumberOfPlays() >= plays) {
+                plays = objAudio.getNumberOfPlays();
+                position = i;
+            }
+        }
+        return position;
+    }
+
 }

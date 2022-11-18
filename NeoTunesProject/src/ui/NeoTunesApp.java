@@ -120,9 +120,10 @@ public class NeoTunesApp {
                             objMain.mostListenedCategory();
                             break;
                         case 4:
-                            objMain.getTops();
+                            objMain.getTopsProducers();
                             break;
                         case 5:
+                            objMain.getTopsAudios();
                             break;
                         case 6:
                             break;
@@ -564,9 +565,14 @@ public class NeoTunesApp {
         System.out.println("\n" + objController.mostListenedCategory(nickname) + "\n");
     }
 
-    public void getTops() {
+    public void getTopsProducers() {
         System.out.println("\n" + objController.getTopFiveArtist());
         System.out.println(objController.getTopFiveContentCreator());
+    }
+
+    public void getTopsAudios() {
+        System.out.println("\n" + objController.getTopTenSongs());
+        System.out.println(objController.getTopTenPodcasts());
     }
 
 }

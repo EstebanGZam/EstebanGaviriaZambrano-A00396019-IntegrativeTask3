@@ -55,4 +55,9 @@ public class Podcast extends Audio {
 		return category;
 	}
 
+	@Override
+	public String toString() {
+		return super.getName() + " (Category: " + category + ", Number of plays: " + super.getNumberOfPlays() + ") ";
+	}
+
 }

@@ -18,8 +18,7 @@ public class Audio implements Playable {
 		this.duration = duration;
 	}
 
-	
-	/** 
+	/**
 	 * @return String
 	 */
 	@Override
@@ -35,16 +34,14 @@ public class Audio implements Playable {
 		return this.name;
 	}
 
-	
-	/** 
+	/**
 	 * @return int
 	 */
 	public int getNumberOfPlays() {
 		return this.numberOfPlays;
 	}
 
-	
-	/** 
+	/**
 	 * @param numberOfPlays
 	 */
 	public void setNumberOfPlays(int numberOfPlays) {

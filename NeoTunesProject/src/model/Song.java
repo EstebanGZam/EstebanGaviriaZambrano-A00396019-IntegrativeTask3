@@ -53,4 +53,9 @@ public class Song extends Audio implements Salable {
 		return genre;
 	}
 
+	@Override
+	public String toString() {
+		return super.getName() + " (Genre: " + genre + ", Number of plays: " + super.getNumberOfPlays() + ") ";
+	}
+
 }
