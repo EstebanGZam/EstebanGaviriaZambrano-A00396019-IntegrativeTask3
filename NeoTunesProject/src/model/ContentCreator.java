@@ -14,16 +14,24 @@ public class ContentCreator extends Producer {
 		podcasts = new ArrayList<Podcast>();
 	}
 
-	
-	/** 
+	/**
 	 * @param name
 	 * @param category
 	 * @param description
 	 * @param urlImage
 	 * @param duration
 	 */
-	public void addPodCast(String name, int category, String description, String urlImage, LocalTime duration) {
-		podcasts.add(new Podcast(name, category, description, urlImage, duration));
+	public void addPodCast(Podcast podcast) {
+		podcasts.add(podcast);
+	}
+
+	@Override
+	public void calculatePlays() {
+		int plays = 0;
+		for (int i = 0; i < podcasts.size(); i++) {
+			plays += podcasts.get(i).getNumberOfPlays();
+		}
+		super.setNumberPlays(plays);
 	}
 
 }

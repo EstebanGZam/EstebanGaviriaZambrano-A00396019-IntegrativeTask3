@@ -120,6 +120,7 @@ public class NeoTunesApp {
                             objMain.mostListenedCategory();
                             break;
                         case 4:
+                            objMain.getTops();
                             break;
                         case 5:
                             break;
@@ -144,7 +145,7 @@ public class NeoTunesApp {
 
     /**
      * <b>Name:</b> menu <br>
-     * <b>Description:</b> This method displays the main menu <br>
+     * <b>Description:</b> Method used to display the main menu. <br>
      * <b><i>pre:</i></b> info <br>
      * <b><i>pos:</i></b> info <br>
      */
@@ -561,6 +562,11 @@ public class NeoTunesApp {
         System.out.print("\nType the user nickname: ");
         String nickname = input.nextLine();
         System.out.println("\n" + objController.mostListenedCategory(nickname) + "\n");
+    }
+
+    public void getTops() {
+        System.out.println("\n" + objController.getTopFiveArtist());
+        System.out.println(objController.getTopFiveContentCreator());
     }
 
 }

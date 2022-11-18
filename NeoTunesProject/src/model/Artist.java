@@ -13,16 +13,24 @@ public class Artist extends Producer {
 		songs = new ArrayList<Song>();
 	}
 
-	
-	/** 
+	/**
 	 * @param name
 	 * @param genre
 	 * @param urlAlbum
 	 * @param duration
 	 * @param saleValue
 	 */
-	public void addSong(String name, int genre, String urlAlbum, LocalTime duration, double saleValue) {
-		songs.add(new Song(name, genre, urlAlbum, duration, saleValue));
+	public void addSong(Song song) {
+		songs.add(song);
+	}
+
+	@Override
+	public void calculatePlays() {
+		int plays = 0;
+		for (int i = 0; i < songs.size(); i++) {
+			plays += songs.get(i).getNumberOfPlays();
+		}
+		super.setNumberPlays(plays);
 	}
 
 }

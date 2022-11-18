@@ -128,8 +128,9 @@ public class NeoTunesPlatform {
             User objUser = searchUser(artistNickname);
             if (objUser != null && objUser instanceof Artist) {
                 Artist objArtist = (Artist) objUser;
-                objArtist.addSong(name, genre, urlAlbum, duration, saleValue);
-                audios.add(new Song(name, genre, urlAlbum, duration, saleValue));
+                Song objSong = new Song(name, genre, urlAlbum, duration, saleValue);
+                objArtist.addSong(objSong);
+                audios.add(objSong);
                 message = "Song registered on the platform successfully!";
             } else if (objUser != null) {
                 message = "Error. The typed nickname doesn't belong to an artist.";
@@ -163,8 +164,9 @@ public class NeoTunesPlatform {
             User objUser = searchUser(producerNickname);
             if (objUser != null && objUser instanceof ContentCreator) {
                 ContentCreator objContentCreator = (ContentCreator) objUser;
-                objContentCreator.addPodCast(name, category, description, urlImage, duration);
-                audios.add(new Podcast(name, category, description, urlImage, duration));
+                Podcast objPodcast = new Podcast(name, category, description, urlImage, duration);
+                objContentCreator.addPodCast(objPodcast);
+                audios.add(objPodcast);
                 message = "Podcast registered on the platform successfully!";
             } else if (objUser != null) {
                 message = "Error. The typed nickname doesn't belong to an content creator.";
@@ -702,6 +704,107 @@ public class NeoTunesPlatform {
                     + "\nNumber of reproductions: " + playsMostListenedCategory;
 
         return report;
+    }
+
+    public String getTopFiveArtist() {
+        ArrayList<Producer> artists = new ArrayList<Producer>();
+        String report = "There are no artists registered on the platform.";
+
+        for (int i = 0; i < users.size(); i++) {
+            User objUser = users.get(i);
+            if (objUser instanceof Artist) {
+                Artist objArtist = (Artist) objUser;
+                objArtist.calculatePlays();
+                artists.add(objArtist);
+            }
+        }
+        if (artists.size() > 0) {
+            Artist[] topArtists = new Artist[5];
+
+            for (int x = 0; x < topArtists.length; x++) {
+
+                int pos = getTopProducer(artists);
+                if (pos != -1) {
+                    topArtists[x] = (Artist) artists.get(pos);
+                    artists.remove(pos);
+                }
+
+            }
+
+            if (topArtists.length > 0) {
+                report = "Artists top five: \n";
+                for (int m = 0; m < topArtists.length; m++) {
+                    if (topArtists[m] != null) {
+                        report += "[ " + (m + 1) + " ] " + topArtists[m].getNickname() + " ("
+                                + topArtists[m].getNumberPlays()
+                                + " plays)\n";
+                    } else {
+                        report += "There are no more registered artists.\n";
+                        m = topArtists.length;
+                    }
+                }
+            } else {
+                report = "There are no reproductions on the platform.";
+            }
+        }
+        return report;
+    }
+
+    public String getTopFiveContentCreator() {
+        ArrayList<Producer> contentCreators = new ArrayList<Producer>();
+        String report = "There are no content creators registered on the platform.";
+
+        for (int i = 0; i < users.size(); i++) {
+            User objUser = users.get(i);
+            if (objUser instanceof ContentCreator) {
+                ContentCreator objContentCreator = (ContentCreator) objUser;
+                objContentCreator.calculatePlays();
+                contentCreators.add(objContentCreator);
+            }
+        }
+        if (contentCreators.size() > 0) {
+            ContentCreator[] topContentCreators = new ContentCreator[5];
+
+            for (int x = 0; x < topContentCreators.length; x++) {
+
+                int pos = getTopProducer(contentCreators);
+                if (pos != -1) {
+                    topContentCreators[x] = (ContentCreator) contentCreators.get(pos);
+                    contentCreators.remove(pos);
+                }
+
+            }
+
+            report = "Content creators top five: \n";
+            for (int m = 0; m < topContentCreators.length; m++) {
+                if (topContentCreators[m] != null) {
+                    report += "[ " + (m + 1) + " ] " + topContentCreators[m].getNickname() + " ("
+                            + topContentCreators[m].getNumberPlays()
+                            + " plays)\n";
+                } else {
+                    report += "There are no more content creators registered on the platform.\n";
+                    m = topContentCreators.length;
+                }
+            }
+            if (report.equalsIgnoreCase(
+                    "Content creators top five: \nThere are no more content creators registered on the platform.\n"))
+                report = "There are no content creator registered on the platform.";
+
+        }
+        return report;
+    }
+
+    public int getTopProducer(ArrayList<Producer> users) {
+        int position = -1;
+        int plays = 0;
+        for (int i = 0; i < users.size(); i++) {
+            Producer objProducer = users.get(i);
+            if (objProducer.getNumberPlays() >= plays) {
+                plays = objProducer.getNumberPlays();
+                position = i;
+            }
+        }
+        return position;
     }
 
 }
