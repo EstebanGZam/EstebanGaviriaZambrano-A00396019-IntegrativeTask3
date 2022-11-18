@@ -58,4 +58,12 @@ public class Song extends Audio implements Salable {
 		return super.getName() + " (Genre: " + genre + ", Number of plays: " + super.getNumberOfPlays() + ") ";
 	}
 
+	public int getNumberSales() {
+		return numberSales;
+	}
+
+	public double getSaleValue() {
+		return saleValue;
+	}
+
 }

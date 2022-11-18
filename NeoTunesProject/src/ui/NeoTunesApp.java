@@ -126,6 +126,7 @@ public class NeoTunesApp {
                             objMain.getTopsAudios();
                             break;
                         case 6:
+                            objMain.reportByGenre();
                             break;
                         case 7:
                             break;
@@ -573,6 +574,10 @@ public class NeoTunesApp {
     public void getTopsAudios() {
         System.out.println("\n" + objController.getTopTenSongs());
         System.out.println(objController.getTopTenPodcasts());
+    }
+
+    public void reportByGenre() {
+        System.out.println(objController.reportByGenre() + "\n");
     }
 
 }

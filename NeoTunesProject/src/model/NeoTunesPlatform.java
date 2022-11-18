@@ -900,4 +900,49 @@ public class NeoTunesPlatform {
         return position;
     }
 
+    public String reportByGenre() {
+        String report = null;
+        int rockSales = 0, popSales = 0, trapSales = 0, houseSales = 0;
+        int rockIncome = 0, popIncome = 0, trapIncome = 0, houseIncome = 0;
+        for (int i = 0; i < audios.size(); i++) {
+            Audio objAudio = audios.get(i);
+            if (objAudio instanceof Song) {
+                Song objSong = (Song) objAudio;
+                switch (objSong.getGenre()) {
+                    case ROCK:
+                        rockSales += objSong.getNumberSales();
+                        rockIncome += (objSong.getNumberSales() * objSong.getSaleValue());
+                        break;
+                    case POP:
+                        popSales += objSong.getNumberSales();
+                        popIncome += (objSong.getNumberSales() * objSong.getSaleValue());
+                        break;
+                    case TRAP:
+                        trapSales += objSong.getNumberSales();
+                        trapIncome += (objSong.getNumberSales() * objSong.getSaleValue());
+                        break;
+                    case HOUSE:
+                        houseSales += objSong.getNumberSales();
+                        houseIncome += (objSong.getNumberSales() * objSong.getSaleValue());
+                        break;
+                }
+            }
+        }
+
+        if ((rockSales + popSales + trapSales + houseSales) > 0) {
+            report = "\n";
+            if (rockSales > 0)
+                report += "\nRock:\n   - Songs sold: " + rockSales + "\n   - Total sales value: " + rockIncome;
+            if (popSales > 0)
+                report += "\nPop:\n   - Songs sold: " + popSales + "\n   - Total sales value: " + popIncome;
+            if (trapSales > 0)
+                report += "\nTrap:\n   - Songs sold: " + trapSales + "\n   - Total sales value: " + trapIncome;
+            if (houseSales > 0)
+                report += "\nHouse:\n   - Songs sold: " + houseSales + "\n   - Total sales value: " + houseIncome;
+        } else
+            report = "\nError. There are no sales of songs registered on the platform.";
+
+        return report;
+    }
+
 }
