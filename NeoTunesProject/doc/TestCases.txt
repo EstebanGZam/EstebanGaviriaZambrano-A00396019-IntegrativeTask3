@@ -1,0 +1,72 @@
+// Test cases
+        System.out.println(
+                objController.addUser("Mario", "111", LocalDate.of(2022, 5, 10), "Mario", "soyunaurl.com", 2));
+        System.out.println(
+                objController.addUser("Andres", "222", LocalDate.of(2022, 5, 10), "Andres", "soyunaurl.com", 2));
+        System.out.println(objController.addUser("Juan", "123", LocalDate.of(2022, 7, 27), 1));
+        System.out.println(objController.addUser("Esteban", "1234", LocalDate.of(2022, 7, 27), 2));
+        System.out
+                .println(objController.addAudio("Mario", "Loco por ti", 1, "Soyunaurl.com", LocalTime.of(0, 3, 10),
+                        10));
+        System.out
+                .println(objController.addAudio("Andres", "Besos usados", 2, "Soyunaurl.com", LocalTime.of(0, 3, 10),
+                        10));
+        System.out
+                .println(objController.addAudio("Andres", "Magia", 3, "Soyunaurl.com", LocalTime.of(0, 3, 10), 15));
+
+        System.out
+                .println(objController.addUser("YoPodcast", "123", LocalDate.of(2022, 8, 10), "Jose Luis",
+                        "Soyunaurl.img", 1));
+        System.out
+                .println(objController.addUser("SoloAmigos", "123", LocalDate.of(2022, 5, 21), "Alfonso", "123.img",
+                        1));
+        System.out.println(objController.addAudio("YoPodcast", "El sentido de la vida", 2, "42", "Soyunaurl.com",
+                LocalTime.of(1, 20, 15)));
+        System.out.println(objController.addAudio("YoPodcast", "Guerra", 1, "42", "Soyunaurl.com",
+                LocalTime.of(1, 20, 15)));
+        System.out.println(objController.addAudio("SoloAmigos", "Amor", 2, "42", "Soyunaurl.com",
+                LocalTime.of(1, 20, 15)));
+
+        ArrayList<String> audios = new ArrayList<String>();
+        audios.add("Loco por ti");
+        audios.add("Besos usados");
+        System.out.println(objController.createPlaylist("Juan", "Salsa", audios));
+
+        ArrayList<String> audiosAdd = new ArrayList<String>(), audiosToRemove = new ArrayList<String>();
+        audiosAdd.add("El sentido de la vida");
+        System.out.println(objController.editPlaylist("Juan", "Salsa", audiosAdd, audiosToRemove));
+        System.out.println(objController.sharePlaylist("Juan", "Salsa") + "\n");
+// End of test cases
+
+
+
+Consumer users registered in the test cases:
+	- Juan (Standard)
+	- Esteban (Premium)
+
+Producer users registered in the test cases:
+	- Mario (artist)
+	- Andres (artist)
+	- YoPodcast (content creator)
+	- SoloAmigos (content creator)
+
+List of songs registered on the platform:
+	- Loco por ti (Rock)
+	- Besos usados (Pop)
+	- Magia (Trap)
+
+List of podcasts registered on the platform:
+ 	- El sentido de la vida (Entertainment)
+ 	- Guerra (Politic)
+ 	- Amor (Entertainment)
+
+
+
+
+
+
+
+
+
+
+

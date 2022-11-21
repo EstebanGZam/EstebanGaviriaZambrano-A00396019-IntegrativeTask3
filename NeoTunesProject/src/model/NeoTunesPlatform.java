@@ -5,6 +5,10 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * <b>Name:</b> NeoTunesPlatform <br>
+ * NeoTunesPlatform objects class. Controller class.<br>
+ */
 public class NeoTunesPlatform {
 
     // relations
@@ -14,6 +18,13 @@ public class NeoTunesPlatform {
     private Random random = new Random();
 
     // methods
+    /**
+     * <b>Name:</b> NeoTunesPlatform <br>
+     * <b>Description:</b> Constructor method of NeoTunesPlatform class (Controller
+     * class). <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     */
     public NeoTunesPlatform() {
         users = new ArrayList<User>();
         audios = new ArrayList<Audio>();
@@ -24,13 +35,22 @@ public class NeoTunesPlatform {
     }
 
     /**
-     * @param nickname
-     * @param id
-     * @param linkUpDate
-     * @param name
-     * @param urlImage
-     * @param type
-     * @return String
+     * <b>Name:</b> addUser <br>
+     * <b>Description:</b> Method used to register producer users on the platform.
+     * <br>
+     * <b><i>pre:</i></b> It must be validated that the user type to be created is
+     * valid (1 for content creators/ 2 for artist). <br>
+     * <b><i>pos:</i></b> The producer user is registered on the platform. <br>
+     * 
+     * @param nickname   Unique identifier of the producer.
+     * @param id         Producer identification document.
+     * @param linkUpDate Date on which the user joined the platform.
+     * @param name       Producer's name.
+     * @param urlImage   URL with the producer photo or distinctive image.
+     * @param type       Type of user to be registered (artist or content creator).
+     * 
+     * @return String Message indicating the creation of the producing user or the
+     *         error occurred in the process.
      */
     public String addUser(String nickname, String id, LocalDate linkUpDate, String name, String urlImage,
             int type) {
@@ -59,16 +79,24 @@ public class NeoTunesPlatform {
     }
 
     /**
-     * @param nickname
-     * @param id
-     * @param linkUpDate
-     * @param type
-     * @return String
+     * <b>Name:</b> addUser <br>
+     * <b>Description:</b> Method used to register consumer users on the platform.
+     * (Standard or premium) <br>
+     * <b><i>pre:</i></b> It must be validated that the user type to be created is
+     * valid (1 for standard/ 2 for Premium). <br>
+     * <b><i>pos:</i></b> The consumer user is registered on the platform. <br>
+     * 
+     * @param nickname   Unique identifier of the Consumer.
+     * @param id         Consumer identification document.
+     * @param linkUpDate Date on which the user joined the platform.
+     * @param type       Type of user to be registered.
+     * @return String Message indicating the creation of the consumer user or
+     *         the error occurred in the process.
      */
     public String addUser(String nickname, String id, LocalDate linkUpDate, int type) {
         String message = null;
 
-        if (searchUser(id) != null) {
+        if (searchUser(nickname) != null) {
             message = "Error. The nickname is already registered on the platform. Try again.";
         } else {
             switch (type) {
@@ -89,8 +117,15 @@ public class NeoTunesPlatform {
     }
 
     /**
-     * @param nickname
-     * @return User
+     * <b>Name:</b> searchUser <br>
+     * <b>Description:</b> Method used to search for a registered user on the
+     * platform. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     * 
+     * @param nickname Unique user identifier
+     * 
+     * @return User User object found (or null).
      */
     public User searchUser(String nickname) {
 
@@ -109,13 +144,20 @@ public class NeoTunesPlatform {
     }
 
     /**
-     * @param artistNickname
-     * @param name
-     * @param genre
-     * @param urlAlbum
-     * @param duration
-     * @param saleValue
-     * @return String
+     * <b>Name:</b> addAudio <br>
+     * <b>Description:</b> Method used to register a song on the platform.<br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> The song is registered on the platform. <br>
+     * 
+     * @param artistNickname Unique identifier of the song's artist
+     * @param name           Song name
+     * @param genre          Genre name
+     * @param urlAlbum       URL with the album cover of the album it belongs to
+     * @param duration       Song duration
+     * @param saleValue      Sales value of the song
+     * 
+     * @return String Message indicating the creation of the song or the error
+     *         occurred in the process.
      */
     public String addAudio(String artistNickname, String name, int genre, String urlAlbum, LocalTime duration,
             double saleValue) {
@@ -145,13 +187,21 @@ public class NeoTunesPlatform {
     }
 
     /**
-     * @param producerNickname
-     * @param name
-     * @param category
-     * @param description
-     * @param urlImage
-     * @param duration
-     * @return String
+     * <b>Name:</b> addAudio <br>
+     * <b>Description:</b> Method used to register a podcast on the platform. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> The podcast is registered on the platform. <br>
+     * 
+     * @param producerNickname Unique identifier of the content creator who made the
+     *                         podcast.
+     * @param name             Podcast name
+     * @param category         Podcast category
+     * @param description      Podcast description
+     * @param urlImage         URL with the distinctive image
+     * @param duration         Podcast duration
+     * 
+     * @return String Message indicating the creation of the podcast or the error
+     *         occurred in the process.
      */
     public String addAudio(String producerNickname, String name, int category, String description, String urlImage,
             LocalTime duration) {
@@ -181,8 +231,15 @@ public class NeoTunesPlatform {
     }
 
     /**
-     * @param name
-     * @return Audio
+     * <b>Name:</b> searchAudio <br>
+     * <b>Description:</b> Method used to search for a registered audio on the
+     * platform. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     * 
+     * @param name Audio name
+     * 
+     * @return Audio Audio object found (or null).
      */
     public Audio searchAudio(String name) {
 
@@ -201,10 +258,19 @@ public class NeoTunesPlatform {
     }
 
     /**
-     * @param userNickname
-     * @param playListName
-     * @param audiosNames
-     * @return String
+     * <b>Name:</b> createPlaylist <br>
+     * <b>Description:</b> Method used to create a playlist. <br>
+     * <b><i>pre:</i></b> The list of audios must be made up of audios that are
+     * registered in the platform. <br>
+     * <b><i>pos:</i></b> The playlist is registered on the platform. <br>
+     * 
+     * @param userNickname Unique identifier of the consumer user who created the
+     *                     playlist.
+     * @param playListName Playlist name.
+     * @param audiosNames  List of audios added to the playlist.
+     * 
+     * @return String Message indicating the creation of the playlist or the error
+     *         occurred in the process.
      */
     public String createPlaylist(String userNickname, String playListName, ArrayList<String> audiosNames) {
 
@@ -243,19 +309,16 @@ public class NeoTunesPlatform {
     }
 
     /**
-     * @param userNickname
-     * @param playListName
-     * @return String
-     */
-    public String createPlaylist(String userNickname, String playListName) {
-        String message = createPlaylist(userNickname, playListName, null);
-        return message;
-    }
-
-    /**
-     * @param nickname
-     * @param playListName
-     * @return PlayList
+     * <b>Name:</b> searchPlaylist <br>
+     * <b>Description:</b> Method used to search for a registered playlist on the
+     * platform. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     * 
+     * @param nickname     Unique identifier of the user who created the playlist.
+     * @param playListName Playlist name.
+     * 
+     * @return PlayList PlayList object found (or null).
      */
     public PlayList searchPlaylist(String nickname, String playListName) {
 
@@ -279,7 +342,7 @@ public class NeoTunesPlatform {
                         }
                     } else if (objUser instanceof Premium) {
                         objPremium = (Premium) objUser;
-                        ArrayList<PlayList> playlists = objPremium.getPlayList();
+                        ArrayList<PlayList> playlists = objPremium.getPlayLists();
                         for (int j = 0; j < playlists.size(); j++) {
                             PlayList playList = playlists.get(j);
                             if (playList.getName().equalsIgnoreCase(playListName)) {
@@ -297,7 +360,13 @@ public class NeoTunesPlatform {
     }
 
     /**
-     * @return int[][]
+     * <b>Name:</b> generateMatrix <br>
+     * <b>Description:</b> The method is used to create an array that will be used
+     * to generate the code to share a playlist. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> A matrix is generated. <br>
+     * 
+     * @return int[][] Matrix generated.
      */
     public int[][] generateMatrix() {
         int rows = 6, columns = 6;
@@ -312,9 +381,16 @@ public class NeoTunesPlatform {
     }
 
     /**
-     * @param audios
-     * @param matrix
-     * @return String
+     * <b>Name:</b> generatePlaylistCode <br>
+     * <b>Description:</b> Method used to generate the code used to share a
+     * playlist. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> The playlist code is created. <br>
+     * 
+     * @param audios List of audios contained in the playlist.
+     * @param matrix Matrix from which the code will be generated.
+     * 
+     * @return String Playlist code
      */
     public String generatePlaylistCode(ArrayList<Audio> audios, int[][] matrix) {
         String code = "";
@@ -371,11 +447,23 @@ public class NeoTunesPlatform {
     }
 
     /**
-     * @param nickname
-     * @param playListName
-     * @param audiosToAdd
-     * @param audiosToRemove
-     * @return String
+     * <b>Name:</b> editPlaylist <br>
+     * <b>Description:</b> Method used to edit a playlist. <br>
+     * <b><i>pre 1:</i></b> The audios that make up the list of audios to be added
+     * must be registered in the platform. <br>
+     * <b><i>pre 2:</i></b> The audios to be added must not be registered in the
+     * playlist (they cannot be repeated).<br>
+     * <b><i>pre 3:</i></b> The audios to be removed must be registered in the
+     * playlist. <br>
+     * <b><i>pos:</i></b> The playlist is edited. <br>
+     * 
+     * @param nickname       Unique identifier of the user who created the playlist.
+     * @param playListName   Playlist name.
+     * @param audiosToAdd    Audios to be added to the playlist.
+     * @param audiosToRemove Audios to be removed of the playlist.
+     * 
+     * @return String Message indicating the edit of the playlist or the error
+     *         occurred in the process.
      */
     public String editPlaylist(String nickname, String playListName, ArrayList<String> audiosToAdd,
             ArrayList<String> audiosToRemove) {
@@ -402,7 +490,7 @@ public class NeoTunesPlatform {
                 }
                 if (audiosToAdd != null || audiosToRemove != null) {
                     int[][] matrix = generateMatrix();
-                    objPlayList.setmatrix(matrix);
+                    objPlayList.setMatrix(matrix);
                     objPlayList.setCode(generatePlaylistCode(objPlayList.getAudios(), matrix));
                 } else
                     message = "Alert. Nothing changed in the playlist, because their audios were not added or removed.";
@@ -410,41 +498,56 @@ public class NeoTunesPlatform {
                 message = "Error. This playlist was not registered by this user.";
             }
         } else if (objUser != null) {
-            message = "Error. Playlist not edited, because only consumer users can edit them.";
+            message = "Error. Playlist not edited, because only the user who created it can modify them.";
         } else {
-            message = "Error. Playlist not created, because the nickname is not registered with any of the platform users.";
+            message = "Error. User not found.";
         }
         return message;
     }
 
     /**
-     * @param nickname
-     * @param playListName
-     * @param songName
-     * @return boolean
+     * <b>Name:</b> searchAudioInPlaylist <br>
+     * <b>Description:</b> Method used to validate if an audio is registered within
+     * a playlist. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     * 
+     * @param nickname     Unique identifier of the user who created the playlist.
+     * @param playListName Playlist name.
+     * @param audioName    Audio name.
+     * 
+     * @return boolean Indicates if the audio is registered in a specific playlist.
      */
-    public boolean searchSongInPlaylist(String nickname, String playListName, String songName) {
-        boolean icontinue = false;
+    public boolean searchAudioInPlaylist(String nickname, String playListName, String audioName) {
+        boolean found = false;
         PlayList objPlayList = searchPlaylist(nickname, playListName);
         if (objPlayList != null) {
-            if (objPlayList.audioPosition(songName) != -1) {
-                icontinue = true;
+            if (objPlayList.audioPosition(audioName) != -1) {
+                found = true;
             }
         }
-        return icontinue;
+        return found;
     }
 
     /**
-     * @param nickname
-     * @param playListName
-     * @return String
+     * <b>Name:</b> sharePlaylist <br>
+     * <b>Description:</b> Method used to share a playlist. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     * 
+     * @param nickname     Unique identifier of the user who created the playlist.
+     * @param playListName Playlist name.
+     * 
+     * @return String Message that shows the code of the playlist with its
+     *         corresponding matrix or the error for which the process could not be
+     *         carried out.
      */
     public String sharePlaylist(String nickname, String playListName) {
         PlayList objPlayList = searchPlaylist(nickname, playListName);
         String message = null;
         if (objPlayList != null) {
             message = "\nOrigin Matrix: \n";
-            int[][] matrix = objPlayList.getmatrix();
+            int[][] matrix = objPlayList.getMatrix();
             for (int i = 0; i < matrix.length; i++) {
                 message += "\n  ";
                 for (int j = 0; j < matrix[0].length; j++) {
@@ -459,7 +562,14 @@ public class NeoTunesPlatform {
     }
 
     /**
-     * @return String
+     * <b>Name:</b> showSongs <br>
+     * <b>Description:</b> Method used to display the list of songs registered on
+     * the platform. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     * 
+     * @return String Message that contains the list of songs registered on the
+     *         platform.
      */
     public String showSongs() {
         String songs = "List of songs registered on the platform:\n";
@@ -476,7 +586,14 @@ public class NeoTunesPlatform {
     }
 
     /**
-     * @return String
+     * <b>Name:</b> showPodcasts <br>
+     * <b>Description:</b> Method used to display the list of podcasts registered on
+     * the platform. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     * 
+     * @return String Message that contains the list of podcasts registered on the
+     *         platform.
      */
     public String showPodcasts() {
         String podcasts = "List of podcasts registered on the platform:\n";
@@ -493,8 +610,16 @@ public class NeoTunesPlatform {
     }
 
     /**
-     * @param audioName
-     * @return boolean
+     * <b>Name:</b> isSong <br>
+     * <b>Description:</b> Method used to validate that an audio is a song. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     * 
+     * @param audioName Audio name.
+     * 
+     * @return boolean Indicates if the entered audio name corresponds to a song
+     *         (the method returns false if the audio does not exist on the
+     *         platform).
      */
     public boolean isSong(String audioName) {
 
@@ -503,13 +628,25 @@ public class NeoTunesPlatform {
         Audio objAudio = searchAudio(audioName);
         if (objAudio != null && objAudio instanceof Song)
             song = true;
+
         return song;
 
     }
 
     /**
-     * @param option
-     * @return String
+     * <b>Name:</b> simulatePlayback <br>
+     * <b>Description:</b> Method used to simulate the reproduction of an audio that
+     * is registered in the platform. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> The user's playback statistics are updated. <br>
+     * 
+     * @param nickname  Unique identifier of the user who created the playlist.
+     * @param audioName Audio name.
+     * @param ad        Indicates whether an ad should be played or not (Only
+     *                  applies to songs, since in the case of podcasts the ads are
+     *                  always played)
+     * 
+     * @return String Message showing a simulation of playback.
      */
     public String simulatePlayback(String nickname, String audioName, boolean ad) {
         Audio objAudio = searchAudio(audioName);
@@ -547,9 +684,16 @@ public class NeoTunesPlatform {
     }
 
     /**
-     * @param nickname
-     * @param audioName
-     * @return String
+     * <b>Name:</b> buySong <br>
+     * <b>Description:</b> Method used to purchase a song. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> The purchase is added to the corresponding user. <br>
+     * 
+     * @param nickname  Unique identifier of the user who created the playlist.
+     * @param audioName Audio name.
+     * @param date      Purchase date of the song.
+     * 
+     * @return String Message indicating the final status of the purchase.
      */
     public String buySong(String nickname, String audioName, LocalDate date) {
 
@@ -560,11 +704,12 @@ public class NeoTunesPlatform {
         if (objUser != null && objUser instanceof Consumer && objAudio != null && objAudio instanceof Song) {
             Song objSong = (Song) objAudio;
             message = "";
-            if ((objUser instanceof Standard)) {
+            if ((objUser instanceof Standard) && !((Standard) objUser).searchBuy(audioName))
                 message = ((Standard) objUser).buySong(objSong, date);
-            } else if (objUser instanceof Premium) {
+            else if (objUser instanceof Premium && !((Premium) objUser).searchBuy(audioName))
                 message = ((Premium) objUser).buySong(objSong, date);
-            }
+            if (message.equals(""))
+                message = "Error. The user already bought this song.";
         } else if (!(objUser instanceof Consumer) || objUser == null) {
             message = "Error. Consumer user not found.";
         } else if (objAudio instanceof Podcast) {
@@ -575,6 +720,16 @@ public class NeoTunesPlatform {
         return message;
     }
 
+    /**
+     * <b>Name:</b> cumulativePlays <br>
+     * <b>Description:</b> Method used to report the total accumulated plays across
+     * the platform. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     * 
+     * @return String Report of the total accumulated plays across
+     *         the platform.
+     */
     public String cumulativePlays() {
         int songsPlays = 0, podcastsPlays = 0;
         String report = "There are no reproductions on the platform.";
@@ -590,6 +745,17 @@ public class NeoTunesPlatform {
         return report;
     }
 
+    /**
+     * <b>Name:</b> mostListenedGenre <br>
+     * <b>Description:</b> Method used to report the most listened song genre (name
+     * and number of plays) for a specific user and for the entire platform. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     * 
+     * @param nickname User nickname
+     * @return String Report of the most listened song genre (name
+     *         and number of plays) for a specific user and for the entire platform.
+     */
     public String mostListenedGenre(String nickname) {
         User objUser = searchUser(nickname);
         String report = null, mostListenedGenre = null;
@@ -648,6 +814,19 @@ public class NeoTunesPlatform {
         return report;
     }
 
+    /**
+     * <b>Name:</b> mostListenedCategory <br>
+     * <b>Description:</b> Method used to report the most listened podcast category
+     * (name and number of plays) for a specific user and for the entire platform.
+     * <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     * 
+     * @param nickname User nickname
+     * @return String Report of the most listened podcast category
+     *         (name and number of plays) for a specific user and for the entire
+     *         platform.
+     */
     public String mostListenedCategory(String nickname) {
         User objUser = searchUser(nickname);
         String report = null, mostListenedCategory = null;
@@ -706,6 +885,16 @@ public class NeoTunesPlatform {
         return report;
     }
 
+    /**
+     * <b>Name:</b> getTopFiveArtist <br>
+     * <b>Description:</b> Method used to report the name and number of total plays
+     * of each of the members of the Top 5 artists. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     * 
+     * @return String Report of the name and number of total plays of each of the
+     *         members of the Top 5 artists.
+     */
     public String getTopFiveArtist() {
         ArrayList<Producer> artists = new ArrayList<Producer>();
         String report = "There are no artists registered on the platform.";
@@ -747,9 +936,21 @@ public class NeoTunesPlatform {
                 report = "There are no reproductions on the platform.";
             }
         }
+
         return report;
+
     }
 
+    /**
+     * <b>Name:</b> getTopFiveContentCreator <br>
+     * <b>Description:</b> Method used to report the name and number of total plays
+     * of each of the members of the Top 5 content creator. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     * 
+     * @return String Report of the name and number of total plays of each of the
+     *         members of the Top 5 content creator.
+     */
     public String getTopFiveContentCreator() {
         ArrayList<Producer> contentCreators = new ArrayList<Producer>();
         String report = "There are no content creators registered on the platform.";
@@ -791,22 +992,47 @@ public class NeoTunesPlatform {
                 report = "There are no content creator registered on the platform.";
 
         }
+
         return report;
+
     }
 
-    public int getTopProducer(ArrayList<Producer> users) {
+    /**
+     * <b>Name:</b> getTopProducer <br>
+     * <b>Description:</b> Method used to obtain the position of the producer with
+     * more number of reproductions in the list of producers. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     * 
+     * @param producers List of producer users.
+     * @return int Position of the producer with more number of reproductions in the
+     *         list of producers.
+     */
+    public int getTopProducer(ArrayList<Producer> producers) {
         int position = -1;
         int plays = 0;
-        for (int i = 0; i < users.size(); i++) {
-            Producer objProducer = users.get(i);
+        for (int i = 0; i < producers.size(); i++) {
+            Producer objProducer = producers.get(i);
             if (objProducer.getNumberPlays() >= plays) {
                 plays = objProducer.getNumberPlays();
                 position = i;
             }
         }
+
         return position;
+
     }
 
+    /**
+     * <b>Name:</b> getTopTenSongs <br>
+     * <b>Description:</b> Method used to report the name, genre and total number of
+     * plays for each of the members of the Top 10 Songs. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     * 
+     * @return String Report of the name, genre and total number of plays for each
+     *         of the members of the Top 10 Songs.
+     */
     public String getTopTenSongs() {
         ArrayList<Audio> songs = new ArrayList<Audio>();
         String report = "There are no songs registered on the platform.";
@@ -844,9 +1070,21 @@ public class NeoTunesPlatform {
                 report = "There are no songs registered on the platform.";
 
         }
+
         return report;
+
     }
 
+    /**
+     * <b>Name:</b> getTopTenPodcasts <br>
+     * <b>Description:</b> Method used to report the name, category and
+     * total number of plays for each of the members of the top 10 podcasts. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     * 
+     * @return String Report of the name, category and total number of plays for
+     *         each of the members of the Top 10 podcasts.
+     */
     public String getTopTenPodcasts() {
         ArrayList<Audio> podcasts = new ArrayList<Audio>();
         String report = "There are no podcasts registered on the platform.";
@@ -884,22 +1122,47 @@ public class NeoTunesPlatform {
                 report = "There are no podcasts registered on the platform.";
 
         }
+
         return report;
+
     }
 
-    public int getTopAudio(ArrayList<Audio> audios) {
+    /**
+     * <b>Name:</b> getTopAudio <br>
+     * <b>Description:</b> Method used to obtain the position of the audio with
+     * more number of reproductions in the array list of audios. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     * 
+     * @param audiosList List of audios.
+     * @return int Position of the audio with more number of reproductions in the
+     *         list of audios.
+     */
+    public int getTopAudio(ArrayList<Audio> audiosList) {
         int position = -1;
         int plays = 0;
-        for (int i = 0; i < audios.size(); i++) {
-            Audio objAudio = audios.get(i);
+        for (int i = 0; i < audiosList.size(); i++) {
+            Audio objAudio = audiosList.get(i);
             if (objAudio.getNumberOfPlays() >= plays) {
                 plays = objAudio.getNumberOfPlays();
                 position = i;
             }
         }
+
         return position;
+
     }
 
+    /**
+     * <b>Name:</b> reportByGenre <br>
+     * <b>Description:</b> Method used to report the number of songs sold and the
+     * total sales value ($) of each genre. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     * 
+     * @return String Report of the number of songs sold and the total sales value
+     *         ($) of each genre.
+     */
     public String reportByGenre() {
         String report = null;
         int rockSales = 0, popSales = 0, trapSales = 0, houseSales = 0;
@@ -932,17 +1195,55 @@ public class NeoTunesPlatform {
         if ((rockSales + popSales + trapSales + houseSales) > 0) {
             report = "\n";
             if (rockSales > 0)
-                report += "\nRock:\n   - Songs sold: " + rockSales + "\n   - Total sales value: " + rockIncome;
+                report += "\nRock:\n   - Songs sold: " + rockSales + "\n   - Total sales value: " + rockIncome + "$";
             if (popSales > 0)
-                report += "\nPop:\n   - Songs sold: " + popSales + "\n   - Total sales value: " + popIncome;
+                report += "\nPop:\n   - Songs sold: " + popSales + "\n   - Total sales value: " + popIncome + "$";
             if (trapSales > 0)
-                report += "\nTrap:\n   - Songs sold: " + trapSales + "\n   - Total sales value: " + trapIncome;
+                report += "\nTrap:\n   - Songs sold: " + trapSales + "\n   - Total sales value: " + trapIncome + "$";
             if (houseSales > 0)
-                report += "\nHouse:\n   - Songs sold: " + houseSales + "\n   - Total sales value: " + houseIncome;
+                report += "\nHouse:\n   - Songs sold: " + houseSales + "\n   - Total sales value: " + houseIncome + "$";
         } else
             report = "\nError. There are no sales of songs registered on the platform.";
 
         return report;
+
+    }
+
+    /**
+     * <b>Name:</b> bestSellingSong <br>
+     * <b>Description:</b> Method used to report the total number of sales and the
+     * total sales value ($) of the top-selling song on the platform. <br>
+     * <b><i>pre:</i></b> <br>
+     * <b><i>pos:</i></b> <br>
+     * 
+     * @return String Report of the total number of sales and the total sales value
+     *         ($) of the top-selling song on the platform.
+     */
+    public String bestSellingSong() {
+        Song bestSeller = null;
+        int moreSales = 0;
+        String report = null;
+
+        for (int i = 0; i < audios.size(); i++) {
+            if (audios.get(i) instanceof Song) {
+                if (((Song) audios.get(i)).getNumberSales() >= moreSales) {
+                    bestSeller = (Song) audios.get(i);
+                    moreSales = bestSeller.getNumberSales();
+                }
+            }
+        }
+        if (bestSeller != null && moreSales > 0) {
+            report = "Best selling song name: " + bestSeller.getName() + "\nNumber of sales: "
+                    + bestSeller.getNumberSales() + "\nTotal sales value: "
+                    + (bestSeller.getNumberSales() * bestSeller.getSaleValue()) + "$";
+        } else if (moreSales == 0) {
+            report = "There are no songs sold.";
+        } else {
+            report = "Error. There are no songs registered on the platform.";
+        }
+
+        return report;
+
     }
 
 }
